@@ -1,0 +1,27 @@
+﻿version: '3.5'
+
+networks:
+  traefik_default:
+    external: true
+  simple_network:
+    name: simple_network
+    driver: overlay
+    attachable: true  
+    ipam:
+      config:
+        - subnet: 172.41.0.0/16
+
+services:
+  simple_app:
+    image: simpleapp
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Release
+    networks:
+      simple_network:
+      traefik_default:
+    ports:
+      - 9090:80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_default"
+      - "traefik.http.routers.simple_app_service.rule=PathPrefix(`/simpleapptwo`)"
