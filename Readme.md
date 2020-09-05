@@ -12,7 +12,12 @@ This demo requires Docker.
 
 ```sh
 $ sh build.sh
-$ docker exec -it $(docker ps -f name=traefik_traefik -q) curl -X GET http://simpleapp/
+```
+
+ You can validate that the dotnet core app is alive and connected on the same network as traefik with the line below:
+
+```
+$ docker exec -it $(docker ps -f name=traefik_traefik -q) curl -X GET http://traefik_simple_app/
 ```
 
 License
